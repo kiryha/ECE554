@@ -3,4 +3,4 @@ def power(power):
 
     return 2**power
 
-print(power(12))
+print(power(6))

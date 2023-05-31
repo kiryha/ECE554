@@ -1,0 +1,137 @@
+{
+  "lesson_01": {
+    "letters": [
+      "f",
+      "j"
+    ],
+    "sequences": [
+      "fff jjj fff jjj fff jjj",
+      "fjf fjf fjf fjf fjf fjf",
+      "jff jff jff jff jff jff",
+      "fjj fjj fjj fjj fjj fjj"
+    ]
+  },
+  "lesson_02": {
+    "letters": [
+      "d",
+      "k"
+    ],
+    "sequences": [
+      "ddd kkk ddd kkk ddd kkk",
+      "dkd dkd dkd dkd dkd dkd",
+      "kdd kdd kdd kdd kdd kdd",
+      "ddk ddk ddk ddk ddk ddk"
+    ]
+  },
+  "lesson_03": {
+    "letters": [
+      "s",
+      "l"
+    ],
+    "sequences": [
+      "sss lll sss lll sss lll",
+      "sls sls sls sls sls sls",
+      "lss lss lss lss lss lss",
+      "ssls slss lsls slls sls"
+    ]
+  },
+  "lesson_04": {
+    "letters": [
+      "a",
+      "e",
+      "i",
+      "o",
+      "u"
+    ],
+    "sequences": [
+      "aaa eee iii ooo uuu aaa eee iii ooo uuu",
+      "aeiou aeiou aeiou aeiou aeiou aeiou",
+      "uoiea uoiea uoiea uoiea uoiea uoiea",
+      "aieou aieou aieou aieou aieou aieou"
+    ]
+  },
+  "lesson_05": {
+    "letters": [
+      "g",
+      "h"
+    ],
+    "sequences": [
+      "ggg hhh ggg hhh ggg hhh",
+      "ghg ghg ghg ghg ghg ghg",
+      "hgg hgg hgg hgg hgg hgg",
+      "ggh ggh ggh ggh ggh ggh"
+    ]
+  },
+  "lesson_06": {
+    "letters": [
+      "t",
+      "y"
+    ],
+    "sequences": [
+      "ttt yyy ttt yyy ttt yyy",
+      "tyt tyt tyt tyt tyt tyt",
+      "ytt ytt ytt ytt ytt ytt",
+      "tyty tyty tyty tyty tyty tyty"
+    ]
+  },
+  "lesson_07": {
+    "letters": [
+      "r",
+      "u"
+    ],
+    "sequences": [
+      "rrr uuu rrr uuu rrr uuu",
+      "rur rur rur rur rur rur",
+      "urr urr urr urr urr urr",
+      "urur urur urur urur urur urur"
+    ]
+  },
+  "lesson_08": {
+    "letters": [
+      "v",
+      "m"
+    ],
+    "sequences": [
+      "vvv mmm vvv mmm vvv mmm",
+      "vmv vmv vmv vmv vmv vmv",
+      "mvm mvm mvm mvm mvm mvm",
+      "vvmvvm vvmvvm vvmvvm vvmvvm vvmvvm"
+    ]
+  },
+  "lesson_09": {
+    "letters": ["c", "w"],
+    "sequences": [
+      "ccc www ccc www ccc www",
+      "cwc cwc cwc cwc cwc cwc",
+      "wcc wcc wcc wcc wcc wcc",
+      "wcwc wcwc wcwc wcwc wcwc wcwc"
+    ]
+  },
+  "lesson_10": {
+    "letters": ["x", "n"],
+    "sequences": [
+      "xxx nnn xxx nnn xxx nnn",
+      "xnx xnx xnx xnx xnx xnx",
+      "nxx nxx nxx nxx nxx nxx",
+      "xnxn xnxn xnxn xnxn xnxn xnxn"
+    ]
+  },
+  "lesson_11": {
+    "letters": ["z", "p"],
+    "sequences": [
+      "zzz ppp zzz ppp zzz ppp",
+      "zpz zpz zpz zpz zpz zpz",
+      "pzz pzz pzz pzz pzz pzz",
+      "pzpz pzpz pzpz pzpz pzpz pzpz"
+    ]
+  },
+  "lesson_12": {
+    "letters": ["q", "b"],
+    "sequences": [
+      "qqq bbb qqq bbb qqq bbb",
+      "qbq qbq qbq qbq qbq qbq",
+      "bqq bqq bqq bqq bqq bqq",
+      "qbqb qbqb qbqb qbqb qbqb qbqb"
+    ]
+  }
+}
