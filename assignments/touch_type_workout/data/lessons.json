@@ -1,13 +1,13 @@
 {
   "lesson_01": {
     "letters": [
-      "f",
-      "j"
+      "F",
+      "J"
     ],
     "sequences": [
-      "fjf",
-      "jjj",
-      "jff jff"
+      "FJF",
+      "JJJ",
+      "JFF JFF"
     ]
   },
   "lesson_02": {

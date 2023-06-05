@@ -13,6 +13,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
     def __init__(self):
         super(TouchType, self).__init__()
         self.setupUi(self)
+        # self.setFocusPolicy(QtCore.Qt.StrongFocus)
 
         # Data
         self.keyboard_blank = f'{root}/data/images/blank.jpg'
@@ -21,7 +22,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.lessons_data = None
         self.tests_data = None
 
-        # Flow
+        # Lesson flow control
         self.lesson_started = False
         self.lesson_name = None
         self.sequence_text = None
@@ -68,18 +69,6 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         self.current_string = 1
         self.string_length = len(self.sequence_text)
-        print(f'len = {self.string_length}')
-
-    def init_lesson(self):
-
-        self.sequence_text = self.lessons_data[self.lesson_name]['sequences'][self.current_sequence]
-        self.linTask.setText(self.sequence_text)
-        pixmap = f'{root}/data/images/{self.sequence_text[self.current_string].upper()}_blue.jpg'
-        self.labPictures.setPixmap(pixmap)
-
-        self.current_string = 1
-        self.string_length = len(self.sequence_text)
-        print(f'len = {self.string_length}')
 
     def start_lesson(self):
 
@@ -90,39 +79,38 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.current_string = 0
         self.init_sequence()
         self.lesson_started = True
+        self.labPictures.setFocus()  # Allow application to catch SPACE key
 
     def keyPressEvent(self, event):
-
-        # if event.key() == QtCore.Qt.Key_A:
-        #     keyboard_a = "C:/Users/kko8/OneDrive/projects/master/ECE554/assignments/project/src/pressed_a.jpg"
-        #     pixmap = QtGui.QPixmap(keyboard_a)
-        #     self.labPictures.setPixmap(pixmap)
-        #     print('A key was pressed')
-        #     self.trigger = 1
-        # else:
-        #     print(f'Key pressed: {event.key()}')
+        """
+        Lesson Flow control
+        """
 
         if self.lesson_started:
-            print('Lesson started')
 
-            print(f'current sequence = {self.current_sequence}')
-            # if self.number_of_sequences == self.current_sequence:
-            #     print('LAST')
+            # print(f'current key = {event.key()}')
+            # print(f'current sequence = {self.current_sequence}')
+            # print(f'current string = {self.current_string}')
 
-            print(f'current string = {self.current_string}')
+            # Check if it was a correct key
+            task_letter = self.sequence_text[self.current_string - 1]
+            pressed_letter = chr(event.key())
+            print(f'Check "{task_letter}":"{pressed_letter}"')
+
             if self.current_string == self.string_length:
                 if self.number_of_sequences == self.current_sequence + 1:
-                    print('LAST')
+                    # End of lesson
                     self.lesson_started = False
                     self.reset_ui()
                     return
 
-                print('End Sequence')
+                # End of Sequence
                 self.current_string = 0
                 self.current_sequence += 1
                 self.init_sequence()
                 return
 
+            # Show next letter in UI
             if self.sequence_text[self.current_string] == ' ':
                 key = 'space'
             else:
@@ -131,6 +119,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             pixmap = f'{root}/data/images/{key}_blue.jpg'
             self.labPictures.setPixmap(pixmap)
 
+            # Update string counter
             self.current_string += 1
 
     def keyReleaseEvent(self, event):
@@ -149,7 +138,7 @@ if __name__ == "__main__":
 
     root = os.path.dirname(os.path.abspath(__file__))
     app = QtWidgets.QApplication([])
-    split_smart = TouchType()
+    touch_type = TouchType()
     # split_smart.setWindowIcon(QtGui.QIcon('{0}/icons/split_smart.ico'.format(root)))
-    split_smart.show()
+    touch_type.show()
     app.exec_()
