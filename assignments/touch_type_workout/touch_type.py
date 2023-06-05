@@ -96,6 +96,8 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             task_letter = self.sequence_text[self.current_string - 1]
             pressed_letter = chr(event.key())
             print(f'Check "{task_letter}":"{pressed_letter}"')
+            if task_letter != pressed_letter:
+                print('WRONG LETTER')
 
             if self.current_string == self.string_length:
                 if self.number_of_sequences == self.current_sequence + 1:
@@ -110,12 +112,13 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                 self.init_sequence()
                 return
 
-            # Show next letter in UI
+            # Get pressed key
             if self.sequence_text[self.current_string] == ' ':
                 key = 'space'
             else:
                 key = self.sequence_text[self.current_string].upper()
 
+            # Show next letter in UI
             pixmap = f'{root}/data/images/{key}_blue.jpg'
             self.labPictures.setPixmap(pixmap)
 
