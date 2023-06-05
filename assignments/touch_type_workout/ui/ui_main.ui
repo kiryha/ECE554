@@ -6,20 +6,99 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1135</width>
-    <height>587</height>
+    <width>1079</width>
+    <height>627</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Touch Type Workout</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_1">
+       <attribute name="title">
+        <string>Lessons and Tests</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Lessons: </string>
+           </property>
+          </widget>
+          <widget class="QComboBox" name="comLessons"/>
+          <widget class="QPushButton" name="btnStartLesson">
+           <property name="text">
+            <string>Start Lesson</string>
+           </property>
+          </widget>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Tests: </string>
+           </property>
+          </widget>
+          <widget class="QComboBox" name="comTests"/>
+          <widget class="QPushButton" name="btnStartTest">
+           <property name="text">
+            <string>Start Test</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="linTask"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="labPictures">
+          <property name="text">
+           <string>PICTURES</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Statistics</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1135</width>
+     <width>1079</width>
      <height>21</height>
     </rect>
    </property>
