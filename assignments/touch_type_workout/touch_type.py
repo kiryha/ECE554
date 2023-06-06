@@ -44,7 +44,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         # Statistic flow control
         self.start_wpm = False
-        self.wpm_time = 0
+        self.time = None
+        self.wpm_lesson_time = 0
+        self.wpm_lesson_characters = 0
 
         self.init_ui()
 
@@ -105,6 +107,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.current_string = 1
         self.string_length = len(self.sequence_text)
 
+        # Stat
+        self.wpm_lesson_characters += self.string_length
+
     def reset_ui(self):
 
         pixmap = QtGui.QPixmap(self.keyboard_blank)
@@ -135,12 +140,20 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.comTests.addItems(self.tests_data.keys())
 
     # Statistics
-    def stat(self):
+    def sequence_wpm(self):
+
+        sequence_time = time.time() - self.time
+        self.wpm_lesson_time += sequence_time
+        # print(f'sequence_time = {sequence_time}')
+        self.start_wpm = False
+
+    def record_statistics(self):
         """
         Calculate and record for each lesson or test session:
             - Words per Minute
 
         statistics = { 'session_index': {session data}}
+            session data = WPM: [letters, time]
         """
 
         # Load existing stat
@@ -148,7 +161,8 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             statistic_data = json.load(file_content)
 
         # Calculate Stat
-        session_data = {'WPM': '+ B C'}
+        # WPM = XXX*(keys per sec) = XXX*(string size / wpm_lesson_time)
+        session_data = {'WPM': [self.wpm_lesson_characters, self.wpm_lesson_time]}
 
         if not statistic_data.keys():  # First launch
             statistic_data[0] = session_data
@@ -174,7 +188,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
             # Statistic
             if not self.start_wpm:
-                print(f'Start timing WPM')
+                # print(f'Start timing WPM')
                 self.time = time.time()
                 self.start_wpm = True
 
@@ -193,10 +207,11 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                     self.reset_ui()
                     self.lesson_started = False
                     self.test_started = False
-
-                    print('End timing WPM')
-                    self.start_wpm = False
-
+                    # Statistics
+                    self.sequence_wpm()
+                    # print('End timing WPM')
+                    # print('END SESSION')
+                    self.record_statistics()
                     return
 
                 # End of Sequence
@@ -210,10 +225,10 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                     self.current_sequence += 1
                     self.start_sequence()
                     return
+
                 self.sequence_ended = True
-                print('End timing WPM')
-                self.wpm_time += self.time - time.time()
-                self.start_wpm = False
+                # print('End timing WPM')
+                self.sequence_wpm()
                 return
 
             self.set_next_picture()
@@ -221,33 +236,28 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             # Update string counter
             self.current_string += 1
 
-    def keyReleaseEvent(self, event):
-        # # This method will be called every time a key is released
-        # if event.key() == QtGui.Qt.Key_A:
-        #     print('A key was released')
-        # else:
-        #     print(f'Key released: {event.key()}')
-
-        # pixmap = QtGui.QPixmap(self.keyboard_blank)
-        # self.labPictures.setPixmap(pixmap)
-        pass
-
     # UI calls
     def start_lesson(self):
 
         self.lesson_name = self.comLessons.currentText()
 
         self.number_of_sequences = len(self.lessons_data[self.lesson_name]['sequences'])
+
+        # Reset Flow
         self.user_input = ''
         self.current_sequence = 0
         self.current_string = 0
         self.lesson_started = True
+
+        # Reset stat
+        self.time = None
+        self.wpm_lesson_time = 0
+        self.wpm_lesson_characters = 0
+
+        # Run sequence
         self.start_sequence()
 
         self.labPictures.setFocus()  # Allow application to catch SPACE key
-
-        # Record statistics by lesson/test
-        self.stat()
 
     def start_test(self):
 
