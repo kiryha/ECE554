@@ -101,7 +101,7 @@ class Ui_TouchType(object):
         self.btnStartLesson.setText(QCoreApplication.translate("TouchType", u"Start Lesson", None))
         self.label_2.setText(QCoreApplication.translate("TouchType", u"Tests: ", None))
         self.btnStartTest.setText(QCoreApplication.translate("TouchType", u"Start Test", None))
-        self.labTasks.setText(QCoreApplication.translate("TouchType", u"TASKS", None))
+        self.labTasks.setText(QCoreApplication.translate("TouchType", u"Select lesson adn press \"Satrt Lesson\"", None))
         self.labPictures.setText(QCoreApplication.translate("TouchType", u"PICTURES", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("TouchType", u"Lessons and Tests", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("TouchType", u"Statistics", None))

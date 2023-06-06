@@ -13,7 +13,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
     def __init__(self):
         super(TouchType, self).__init__()
         self.setupUi(self)
-        font = QtGui.QFont()
+        font = QtGui.QFont('Free Range Hive')
         font.setPointSize(40)
         self.labTasks.setFont(font)
 
@@ -89,7 +89,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         # self.linTask.setText(self.sequence_text)
         self.labTasks.setText(self.sequence_text)
 
-        pixmap = f'{root}/data/images/{self.sequence_text[self.current_string].upper()}_blue.jpg'
+        pixmap = f'{root}/data/images/{self.sequence_text[self.current_string].upper()}.png'
         self.labPictures.setPixmap(pixmap)
 
         self.current_string = 1
@@ -150,7 +150,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                 key = self.sequence_text[self.current_string].upper()
 
             # Show next letter in UI
-            pixmap = f'{root}/data/images/{key}_blue.jpg'
+            pixmap = f'{root}/data/images/{key}.png'
             self.labPictures.setPixmap(pixmap)
 
             # Update string counter
