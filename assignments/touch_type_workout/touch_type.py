@@ -13,7 +13,7 @@ from matplotlib.figure import Figure
 
 class StatisticCanvas(FigureCanvas):
     def __init__(self, parent=None):
-        fig = Figure(dpi=100)  # figsize=(1.6, 0.52),
+        fig = Figure(dpi=100)
         self.axes = fig.add_subplot(111)
         self.compute_initial_figure()
 
@@ -29,28 +29,51 @@ class MyStaticMplCanvas(StatisticCanvas):
         self.json_file = json_file
         super().__init__(parent)
 
+        self.statistics_data = None
+        self.times = None
+        self.wpm = None
+        self.errors = None
+
+    def load_data(self):
+
+        with open(self.json_file) as f:
+            self.statistics_data = json.load(f)
+
+        self.times = list(self.statistics_data.keys())
+
+        # Calculate WPM
+        self.wpm = []
+        for value in self.statistics_data.values():
+            cps = value['characters']/value['time']
+            wpm = (cps * 60) / 5
+            self.wpm.append(wpm)
+
+        # Calculate errors
+        self.errors = []
+        for value in self.statistics_data.values():
+            error_value = int((value['errors']/value['characters'])*100)
+            self.errors.append(error_value)
+
+    def plot(self):
+
+        self.axes.plot(self.times, self.wpm, 'r', label='WPM')
+        self.axes.plot(self.times, self.errors, 'b', label='Errors')
+
     def compute_initial_figure(self):
 
-        # Load data
-        with open(self.json_file) as f:
-            statistics_data = json.load(f)
-
-        times = list(statistics_data.keys())
-        characters = [value['characters'] for value in statistics_data.values()]
-        times_values = [value['time'] for value in statistics_data.values()]
-        errors = [value['errors'] for value in statistics_data.values()]
-
-        self.axes.plot(times, characters, 'r', label='Characters')
-        self.axes.plot(times, times_values, 'g', label='Time')
-        self.axes.plot(times, errors, 'b', label='Errors')
-
+        self.load_data()
+        self.plot()
         self.axes.legend()
-
-        # self.axes.set_xlabel('Time')
-        # self.axes.set_ylabel('Value')
-        # self.axes.set_title('Statistics')
-        self.axes.figure.subplots_adjust(left=0.01, right=0.99, bottom=0.01, top=0.99)
         self.axes.figure.tight_layout()
+
+    def update_figure(self):
+
+        self.axes.clear()
+        self.load_data()
+        self.plot()
+        self.axes.legend()
+        self.axes.figure.tight_layout()
+        self.draw()
 
 
 class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
@@ -355,7 +378,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
     def reload_stat(self):
 
-        self.canvas = MyStaticMplCanvas(self.statistic, self)
+        self.canvas.update_figure()
 
 
 if __name__ == "__main__":
