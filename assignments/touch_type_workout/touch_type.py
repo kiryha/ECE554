@@ -16,7 +16,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         font = QtGui.QFont('Free Range Hive')
         font.setPointSize(48)
         self.labTasks.setFont(font)
-        self.labTasks.setText('PRESS "START LESSON" or "START TEST"')
+        self.labTasks.setText('PRESS  <font color="red">START LESSON</font> OR <font color="red">START TEST</font>')
 
         # Data
         self.statistic = f'{user}/Documents/touch_type_stat.json'
@@ -47,6 +47,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.time = None
         self.wpm_lesson_time = 0
         self.wpm_lesson_characters = 0
+        self.errors = 0
 
         self.init_ui()
 
@@ -121,7 +122,11 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         else:
             string = 'TEST'
 
-        self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font>')
+        # self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font>')
+        self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font> '
+                              f'WPM: {self.cps_to_wpm()} | '
+                              f'ERRORS: {self.errors_rate()}% | '
+                              f'RHYTHM: ...')
 
     def init_ui(self):
 
@@ -140,12 +145,31 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.comTests.addItems(self.tests_data.keys())
 
     # Statistics
+    def errors_rate(self):
+
+        return int((self.errors/self.wpm_lesson_characters)*100)
+
+    def cps_to_wpm(self):
+        """
+        words per minute = (characters per second * 60) / letters in word
+        f"{wpm:.2f}"
+        """
+
+        cps = self.wpm_lesson_characters/self.wpm_lesson_time
+        wpm = (cps*60)/5
+
+        return int(wpm)
+
     def sequence_wpm(self):
+        """
+        Calculate sequence typing time (seconds)
+        """
 
         sequence_time = time.time() - self.time
         self.wpm_lesson_time += sequence_time
-        # print(f'sequence_time = {sequence_time}')
         self.start_wpm = False
+
+        # print(f'sequence_time = {sequence_time}')
 
     def record_statistics(self):
         """
@@ -161,8 +185,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             statistic_data = json.load(file_content)
 
         # Calculate Stat
-        # WPM = XXX*(keys per sec) = XXX*(string size / wpm_lesson_time)
-        session_data = {'WPM': [self.wpm_lesson_characters, self.wpm_lesson_time]}
+        session_data = {'characters': self.wpm_lesson_characters,
+                        'time': self.wpm_lesson_time,
+                        'errors': self.errors}
 
         if not statistic_data.keys():  # First launch
             statistic_data[0] = session_data
@@ -184,20 +209,26 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
             # print(f'current key = {event.key()}')
             # print(f'current sequence = {self.current_sequence}')
+            # print(f'string_length = {self.string_length}')
             # print(f'current string = {self.current_string}')
-
-            # Statistic
-            if not self.start_wpm:
-                # print(f'Start timing WPM')
-                self.time = time.time()
-                self.start_wpm = True
 
             # Check if it was a correct key
             task_letter = self.sequence_text[self.current_string - 1]
             pressed_letter = chr(event.key())
             self.user_input += pressed_letter
-            # print(f'Task = {task_letter}, Pressed = {pressed_letter}')
 
+            # Statistic
+            # Words per minute
+            if not self.start_wpm:
+                # print(f'Start timing WPM')
+                self.time = time.time()
+                self.start_wpm = True
+
+            # Key errors
+            if task_letter != pressed_letter and not self.sequence_ended:
+                self.errors += 1
+
+            # Display errors in UI
             self.check_user_input(self.user_input)
 
             # Process all keys
@@ -212,6 +243,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                     # print('End timing WPM')
                     # print('END SESSION')
                     self.record_statistics()
+
                     return
 
                 # End of Sequence
@@ -253,6 +285,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.time = None
         self.wpm_lesson_time = 0
         self.wpm_lesson_characters = 0
+        self.errors = 0
 
         # Run sequence
         self.start_sequence()
