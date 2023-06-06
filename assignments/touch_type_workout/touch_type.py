@@ -19,6 +19,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.labTasks.setText('PRESS "START LESSON" or "START TEST"')
 
         # Data
+        self.statistic = f'{user}/Documents/touch_type_stat.json'
         self.keyboard_blank = f'{root}/data/images/_blank.png'
         self.keyboard_all = f'{root}/data/images/_all.png'
         self.lessons = f'{root}/data/lessons.json'
@@ -28,8 +29,8 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         # Lesson flow control
         self.lesson_started = False
-        self.sequence_ended = False
         self.lesson_name = None
+        self.sequence_ended = False
         self.sequence_text = None
         self.number_of_sequences = 0
         self.current_sequence = 0
@@ -40,6 +41,10 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         # Test flow control
         self.test_started = False
         self.test_name = None
+
+        # Statistic flow control
+        self.start_wpm = False
+        self.wpm_time = 0
 
         self.init_ui()
 
@@ -83,19 +88,6 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         pixmap = f'{root}/data/images/{key}.png'
         self.labPictures.setPixmap(pixmap)
 
-    def reset_ui(self):
-
-        pixmap = QtGui.QPixmap(self.keyboard_blank)
-        self.labPictures.setPixmap(pixmap)
-        self.labTasks.clear()
-
-        if self.lesson_started:
-            string = 'LESSON'
-        else:
-            string = 'TEST'
-
-        self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font>')
-
     def start_sequence(self):
         """
         Display sequence of strings for current lesson
@@ -113,6 +105,19 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.current_string = 1
         self.string_length = len(self.sequence_text)
 
+    def reset_ui(self):
+
+        pixmap = QtGui.QPixmap(self.keyboard_blank)
+        self.labPictures.setPixmap(pixmap)
+        self.labTasks.clear()
+
+        if self.lesson_started:
+            string = 'LESSON'
+        else:
+            string = 'TEST'
+
+        self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font>')
+
     def init_ui(self):
 
         # Load keyboard
@@ -129,6 +134,32 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.comLessons.addItems(self.lessons_data.keys())
         self.comTests.addItems(self.tests_data.keys())
 
+    # Statistics
+    def stat(self):
+        """
+        Calculate and record for each lesson or test session:
+            - Words per Minute
+
+        statistics = { 'session_index': {session data}}
+        """
+
+        # Load existing stat
+        with open(self.statistic, 'r') as file_content:
+            statistic_data = json.load(file_content)
+
+        # Calculate Stat
+        session_data = {'WPM': '+ B C'}
+
+        if not statistic_data.keys():  # First launch
+            statistic_data[0] = session_data
+        else:
+            number_of_sessions = len(statistic_data.keys())
+            statistic_data[number_of_sessions] = session_data
+
+        # Save updated stat
+        with open(self.statistic, 'w') as file_content:
+            json.dump(statistic_data, file_content, indent=4)
+
     # Flow control
     def keyPressEvent(self, event):
         """
@@ -137,18 +168,35 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         if self.lesson_started or self.test_started:
 
+            # print(f'current key = {event.key()}')
+            # print(f'current sequence = {self.current_sequence}')
+            # print(f'current string = {self.current_string}')
+
+            # Statistic
+            if not self.start_wpm:
+                print(f'Start timing WPM')
+                self.time = time.time()
+                self.start_wpm = True
+
             # Check if it was a correct key
             task_letter = self.sequence_text[self.current_string - 1]
             pressed_letter = chr(event.key())
             self.user_input += pressed_letter
+            # print(f'Task = {task_letter}, Pressed = {pressed_letter}')
+
             self.check_user_input(self.user_input)
 
+            # Process all keys
             if self.current_string == self.string_length:
                 if self.number_of_sequences == self.current_sequence + 1:
                     # End of lesson
                     self.reset_ui()
                     self.lesson_started = False
                     self.test_started = False
+
+                    print('End timing WPM')
+                    self.start_wpm = False
+
                     return
 
                 # End of Sequence
@@ -163,6 +211,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                     self.start_sequence()
                     return
                 self.sequence_ended = True
+                print('End timing WPM')
+                self.wpm_time += self.time - time.time()
+                self.start_wpm = False
                 return
 
             self.set_next_picture()
@@ -195,6 +246,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         self.labPictures.setFocus()  # Allow application to catch SPACE key
 
+        # Record statistics by lesson/test
+        self.stat()
+
     def start_test(self):
 
         self.test_name = self.comTests.currentText()
@@ -211,6 +265,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 if __name__ == "__main__":
 
     root = os.path.dirname(os.path.abspath(__file__))
+    user = os.path.expanduser('~')
     app = QtWidgets.QApplication([])
     touch_type = TouchType()
     touch_type.setWindowIcon(QtGui.QIcon('{0}/icons/touch_type.ico'.format(root)))
