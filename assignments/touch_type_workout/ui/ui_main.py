@@ -17,7 +17,7 @@ class Ui_TouchType(object):
     def setupUi(self, TouchType):
         if not TouchType.objectName():
             TouchType.setObjectName(u"TouchType")
-        TouchType.resize(1376, 646)
+        TouchType.resize(1376, 765)
         self.centralwidget = QWidget(TouchType)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -33,12 +33,15 @@ class Ui_TouchType(object):
         self.splitter.setOrientation(Qt.Horizontal)
         self.label = QLabel(self.splitter)
         self.label.setObjectName(u"label")
+        self.label.setMaximumSize(QSize(100, 16777215))
         self.splitter.addWidget(self.label)
         self.comLessons = QComboBox(self.splitter)
         self.comLessons.setObjectName(u"comLessons")
+        self.comLessons.setMaximumSize(QSize(100, 16777215))
         self.splitter.addWidget(self.comLessons)
         self.btnStartLesson = QPushButton(self.splitter)
         self.btnStartLesson.setObjectName(u"btnStartLesson")
+        self.btnStartLesson.setMaximumSize(QSize(100, 16777215))
         self.splitter.addWidget(self.btnStartLesson)
         self.line = QFrame(self.splitter)
         self.line.setObjectName(u"line")
@@ -47,20 +50,35 @@ class Ui_TouchType(object):
         self.splitter.addWidget(self.line)
         self.label_2 = QLabel(self.splitter)
         self.label_2.setObjectName(u"label_2")
+        self.label_2.setMaximumSize(QSize(100, 16777215))
         self.splitter.addWidget(self.label_2)
         self.comTests = QComboBox(self.splitter)
         self.comTests.setObjectName(u"comTests")
+        self.comTests.setMaximumSize(QSize(100, 16777215))
         self.splitter.addWidget(self.comTests)
         self.btnStartTest = QPushButton(self.splitter)
         self.btnStartTest.setObjectName(u"btnStartTest")
+        self.btnStartTest.setMaximumSize(QSize(100, 16777215))
         self.splitter.addWidget(self.btnStartTest)
 
         self.verticalLayout_2.addWidget(self.splitter)
+
+        self.sep_1 = QLabel(self.tab_1)
+        self.sep_1.setObjectName(u"sep_1")
+        self.sep_1.setMinimumSize(QSize(0, 24))
+
+        self.verticalLayout_2.addWidget(self.sep_1)
 
         self.labTasks = QLabel(self.tab_1)
         self.labTasks.setObjectName(u"labTasks")
 
         self.verticalLayout_2.addWidget(self.labTasks)
+
+        self.sep_2 = QLabel(self.tab_1)
+        self.sep_2.setObjectName(u"sep_2")
+        self.sep_2.setMinimumSize(QSize(0, 24))
+
+        self.verticalLayout_2.addWidget(self.sep_2)
 
         self.labPictures = QLabel(self.tab_1)
         self.labPictures.setObjectName(u"labPictures")
@@ -101,7 +119,9 @@ class Ui_TouchType(object):
         self.btnStartLesson.setText(QCoreApplication.translate("TouchType", u"Start Lesson", None))
         self.label_2.setText(QCoreApplication.translate("TouchType", u"Tests: ", None))
         self.btnStartTest.setText(QCoreApplication.translate("TouchType", u"Start Test", None))
+        self.sep_1.setText("")
         self.labTasks.setText(QCoreApplication.translate("TouchType", u"TASKS", None))
+        self.sep_2.setText("")
         self.labPictures.setText(QCoreApplication.translate("TouchType", u"PICTURES", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("TouchType", u"Lessons and Tests", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("TouchType", u"Statistics", None))

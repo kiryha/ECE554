@@ -7,7 +7,7 @@
     "sequences": [
       "FJFF",
       "JJJ",
-      "JFF JFF F J JF JFJFJ JF JJ FF JJF"
+      "ABC FLO X TR OPH QSML GVB"
     ]
   },
   "lesson_02": {
@@ -16,10 +16,10 @@
       "k"
     ],
     "sequences": [
-      "ddd kkk ddd kkk ddd kkk",
-      "dkd dkd dkd dkd dkd dkd",
-      "kdd kdd kdd kdd kdd kdd",
-      "ddk ddk ddk ddk ddk ddk"
+      "DDD KKK DDD KKK DDD KKK",
+      "DKD DKD DKD DKD DKD DKD",
+      "KDD KDD KDD KDD KDD KDD",
+      "DDK DDK DDK DDK DDK DDK"
     ]
   },
   "lesson_03": {
@@ -28,10 +28,10 @@
       "l"
     ],
     "sequences": [
-      "sss lll sss lll sss lll",
-      "sls sls sls sls sls sls",
-      "lss lss lss lss lss lss",
-      "ssls slss lsls slls sls"
+      "SSS LLL SSS LLL SSS LLL",
+      "SLS SLS SLS SLS SLS SLS",
+      "LSS LSS LSS LSS LSS LSS",
+      "SSLS SLSS LSLS SLLS SLS"
     ]
   },
   "lesson_04": {
@@ -43,10 +43,10 @@
       "u"
     ],
     "sequences": [
-      "aaa eee iii ooo uuu aaa eee iii ooo uuu",
-      "aeiou aeiou aeiou aeiou aeiou aeiou",
-      "uoiea uoiea uoiea uoiea uoiea uoiea",
-      "aieou aieou aieou aieou aieou aieou"
+      "AAA EEE III OOO UUU AAA EEE III OOO UUU",
+      "AEIOU AEIOU AEIOU AEIOU AEIOU AEIOU",
+      "UOIEA UOIEA UOIEA UOIEA UOIEA UOIEA",
+      "AIEOU AIEOU AIEOU AIEOU AIEOU AIEOU"
     ]
   },
   "lesson_05": {
@@ -55,10 +55,10 @@
       "h"
     ],
     "sequences": [
-      "ggg hhh ggg hhh ggg hhh",
-      "ghg ghg ghg ghg ghg ghg",
-      "hgg hgg hgg hgg hgg hgg",
-      "ggh ggh ggh ggh ggh ggh"
+      "GGG HHH GGG HHH GGG HHH",
+      "GHG GHG GHG GHG GHG GHG",
+      "HGG HGG HGG HGG HGG HGG",
+      "GGH GGH GGH GGH GGH GGH"
     ]
   },
   "lesson_06": {
@@ -67,10 +67,10 @@
       "y"
     ],
     "sequences": [
-      "ttt yyy ttt yyy ttt yyy",
-      "tyt tyt tyt tyt tyt tyt",
-      "ytt ytt ytt ytt ytt ytt",
-      "tyty tyty tyty tyty tyty tyty"
+      "TTT YYY TTT YYY TTT YYY",
+      "TYT TYT TYT TYT TYT TYT",
+      "YTT YTT YTT YTT YTT YTT",
+      "TYTY TYTY TYTY TYTY TYTY TYTY"
     ]
   },
   "lesson_07": {
@@ -79,10 +79,10 @@
       "u"
     ],
     "sequences": [
-      "rrr uuu rrr uuu rrr uuu",
-      "rur rur rur rur rur rur",
-      "urr urr urr urr urr urr",
-      "urur urur urur urur urur urur"
+      "RRR UUU RRR UUU RRR UUU",
+      "RUR RUR RUR RUR RUR RUR",
+      "URR URR URR URR URR URR",
+      "URUR URUR URUR URUR URUR URUR"
     ]
   },
   "lesson_08": {
@@ -91,46 +91,46 @@
       "m"
     ],
     "sequences": [
-      "vvv mmm vvv mmm vvv mmm",
-      "vmv vmv vmv vmv vmv vmv",
-      "mvm mvm mvm mvm mvm mvm",
-      "vvmvvm vvmvvm vvmvvm vvmvvm vvmvvm"
+      "VVV MMM VVV MMM VVV MMM",
+      "VMV VMV VMV VMV VMV VMV",
+      "MVM MVM MVM MVM MVM MVM",
+      "VVMVVM VVMVVM VVMVVM VVMVVM VVMVVM"
     ]
   },
   "lesson_09": {
     "letters": ["c", "w"],
     "sequences": [
-      "ccc www ccc www ccc www",
-      "cwc cwc cwc cwc cwc cwc",
-      "wcc wcc wcc wcc wcc wcc",
-      "wcwc wcwc wcwc wcwc wcwc wcwc"
+      "CCC WWW CCC WWW CCC WWW",
+      "CWC CWC CWC CWC CWC CWC",
+      "WCC WCC WCC WCC WCC WCC",
+      "WCWC WCWC WCWC WCWC WCWC WCWC"
     ]
   },
   "lesson_10": {
     "letters": ["x", "n"],
     "sequences": [
-      "xxx nnn xxx nnn xxx nnn",
-      "xnx xnx xnx xnx xnx xnx",
-      "nxx nxx nxx nxx nxx nxx",
-      "xnxn xnxn xnxn xnxn xnxn xnxn"
+      "XXX NNN XXX NNN XXX NNN",
+      "XNX XNX XNX XNX XNX XNX",
+      "NXX NXX NXX NXX NXX NXX",
+      "XNXN XNXN XNXN XNXN XNXN XNXN"
     ]
   },
   "lesson_11": {
     "letters": ["z", "p"],
     "sequences": [
-      "zzz ppp zzz ppp zzz ppp",
-      "zpz zpz zpz zpz zpz zpz",
-      "pzz pzz pzz pzz pzz pzz",
-      "pzpz pzpz pzpz pzpz pzpz pzpz"
+      "ZZZ PPP ZZZ PPP ZZZ PPP",
+      "ZPZ ZPZ ZPZ ZPZ ZPZ ZPZ",
+      "PZZ PZZ PZZ PZZ PZZ PZZ",
+      "PZPZ PZPZ PZPZ PZPZ PZPZ PZPZ"
     ]
   },
   "lesson_12": {
     "letters": ["q", "b"],
     "sequences": [
-      "qqq bbb qqq bbb qqq bbb",
-      "qbq qbq qbq qbq qbq qbq",
-      "bqq bqq bqq bqq bqq bqq",
-      "qbqb qbqb qbqb qbqb qbqb qbqb"
+      "QQQ BBB QQQ BBB QQQ BBB",
+      "QBQ QBQ QBQ QBQ QBQ QBQ",
+      "BQQ BQQ BQQ BQQ BQQ BQQ",
+      "QBQB QBQB QBQB QBQB QBQB QBQB"
     ]
   }
 }

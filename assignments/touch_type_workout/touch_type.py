@@ -37,30 +37,33 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.string_length = None
         self.user_input = ''
 
+        # Test flow control
+        self.test_started = False
+        self.test_name = None
+
         self.init_ui()
 
-        # UI signals
+        # UI calls
         self.btnStartLesson.pressed.connect(self.start_lesson)
+        self.btnStartTest.pressed.connect(self.start_test)
 
     def check_user_input(self, user_text):
+        """
+        Paint green correct keys, red - incorrect
+        """
 
-        # print(f'user_text {user_text}')
-
-        # Build a new string that will include correct and incorrect characters
         colored_string = ""
 
-        for correct_char, user_char in zip(self.sequence_text, user_text):
-            # Correct characters will be painted in black
-            if correct_char == user_char:
-                colored_string += "<font color='green'>{}</font>".format(user_char)
-            # Incorrect characters will be painted in red
+        for correct_character, user_character in zip(self.sequence_text, user_text):
+            # Correct characters
+            if correct_character == user_character:
+                colored_string += f"<font color='green'>{user_character}</font>"
+            # Incorrect characters
             else:
-                colored_string += "<font color='red'>{}</font>".format(user_char)
+                colored_string += f"<font color='red'>{user_character}</font>"
 
         # Preserve the rest of the original string after the user's input
-        # print(f'self.sequence_text[len(user_text):] {self.sequence_text[len(user_text):]}')
         colored_string += self.sequence_text[len(user_text):]
-        # print(f'colored_string = {colored_string}')
 
         # Update the label text
         self.labTasks.setText(colored_string)
@@ -85,28 +88,23 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         pixmap = QtGui.QPixmap(self.keyboard_blank)
         self.labPictures.setPixmap(pixmap)
         self.labTasks.clear()
-        self.labTasks.setText('LESSON COMPLETE!')
 
-    def init_ui(self):
+        if self.lesson_started:
+            string = 'LESSON'
+        else:
+            string = 'TEST'
 
-        # Load keyboard
-        pixmap = QtGui.QPixmap(self.keyboard_blank)
-        # self.labPictures.setPixmap(pixmap.scaled(self.label.size(), QtCore.Qt.IgnoreAspectRatio))
-        self.labPictures.setPixmap(pixmap)
-
-        # Load lessons and tests
-        with open(self.lessons, 'r') as file_content:
-            self.lessons_data = json.load(file_content)
-
-        with open(self.lessons, 'r') as file_content:
-            self.tests_data = json.load(file_content)
-
-        self.comLessons.addItems(self.lessons_data.keys())
-        self.comTests.addItems(self.tests_data.keys())
+        self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font>')
 
     def start_sequence(self):
+        """
+        Display sequence of strings for current lesson
+        """
+        if self.lesson_started:
+            self.sequence_text = self.lessons_data[self.lesson_name]['sequences'][self.current_sequence]
+        else:
+            self.sequence_text = self.tests_data[self.test_name]['sequences'][self.current_sequence]
 
-        self.sequence_text = self.lessons_data[self.lesson_name]['sequences'][self.current_sequence]
         self.labTasks.setText(self.sequence_text)
 
         pixmap = f'{root}/data/images/{self.sequence_text[self.current_string].upper()}.png'
@@ -115,24 +113,29 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.current_string = 1
         self.string_length = len(self.sequence_text)
 
-    def start_lesson(self):
+    def init_ui(self):
 
-        self.lesson_name = self.comLessons.currentText()
+        # Load keyboard
+        pixmap = QtGui.QPixmap(self.keyboard_blank)
+        self.labPictures.setPixmap(pixmap)
 
-        self.number_of_sequences = len(self.lessons_data[self.lesson_name]['sequences'])
-        self.user_input = ''
-        self.current_sequence = 0
-        self.current_string = 0
-        self.start_sequence()
-        self.lesson_started = True
-        self.labPictures.setFocus()  # Allow application to catch SPACE key
+        # Load lessons and tests
+        with open(self.lessons, 'r') as file_content:
+            self.lessons_data = json.load(file_content)
 
+        with open(self.tests, 'r') as file_content:
+            self.tests_data = json.load(file_content)
+
+        self.comLessons.addItems(self.lessons_data.keys())
+        self.comTests.addItems(self.tests_data.keys())
+
+    # Flow control
     def keyPressEvent(self, event):
         """
         Lesson Flow control
         """
 
-        if self.lesson_started:
+        if self.lesson_started or self.test_started:
 
             # Check if it was a correct key
             task_letter = self.sequence_text[self.current_string - 1]
@@ -143,8 +146,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             if self.current_string == self.string_length:
                 if self.number_of_sequences == self.current_sequence + 1:
                     # End of lesson
-                    self.lesson_started = False
                     self.reset_ui()
+                    self.lesson_started = False
+                    self.test_started = False
                     return
 
                 # End of Sequence
@@ -176,6 +180,32 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         # pixmap = QtGui.QPixmap(self.keyboard_blank)
         # self.labPictures.setPixmap(pixmap)
         pass
+
+    # UI calls
+    def start_lesson(self):
+
+        self.lesson_name = self.comLessons.currentText()
+
+        self.number_of_sequences = len(self.lessons_data[self.lesson_name]['sequences'])
+        self.user_input = ''
+        self.current_sequence = 0
+        self.current_string = 0
+        self.lesson_started = True
+        self.start_sequence()
+
+        self.labPictures.setFocus()  # Allow application to catch SPACE key
+
+    def start_test(self):
+
+        self.test_name = self.comTests.currentText()
+        self.number_of_sequences = len(self.tests_data[self.test_name]['sequences'])
+        self.user_input = ''
+        self.current_sequence = 0
+        self.current_string = 0
+        self.test_started = True
+        self.start_sequence()
+
+        self.labPictures.setFocus()  # Allow application to catch SPACE key
 
 
 if __name__ == "__main__":

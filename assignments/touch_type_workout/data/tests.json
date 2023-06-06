@@ -1,10 +1,18 @@
 {
   "test_01": {
-    "paragraphs": [
-      "The quick brown fox jumps over the lazy dog.",
-      "Jackdaws love my big sphinx of quartz.",
-      "How vexingly quick daft zebras jump.",
-      "Bright vixens jump; dozy fowl quack."
+    "sequences": [
+      "THE",
+      "JACK",
+      "HOW"
+    ]
+  },
+
+  "test_02": {
+    "sequences": [
+      "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.",
+      "JACKDAWS LOVE MY BIG SPHINX OF QUARTZ.",
+      "HOW VEXINGLY QUICK DAFT ZEBRAS JUMP.",
+      "BRIGHT VIXENS JUMP; DOZY FOWL QUACK."
     ]
   }
 }

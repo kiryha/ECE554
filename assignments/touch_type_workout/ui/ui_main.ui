@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1376</width>
-    <height>646</height>
+    <height>765</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,12 +31,31 @@
            <enum>Qt::Horizontal</enum>
           </property>
           <widget class="QLabel" name="label">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="text">
             <string>Lessons: </string>
            </property>
           </widget>
-          <widget class="QComboBox" name="comLessons"/>
+          <widget class="QComboBox" name="comLessons">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
           <widget class="QPushButton" name="btnStartLesson">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="text">
             <string>Start Lesson</string>
            </property>
@@ -47,12 +66,31 @@
            </property>
           </widget>
           <widget class="QLabel" name="label_2">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="text">
             <string>Tests: </string>
            </property>
           </widget>
-          <widget class="QComboBox" name="comTests"/>
+          <widget class="QComboBox" name="comTests">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
           <widget class="QPushButton" name="btnStartTest">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="text">
             <string>Start Test</string>
            </property>
@@ -60,9 +98,35 @@
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="sep_1">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="labTasks">
           <property name="text">
            <string>TASKS</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="sep_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </item>
