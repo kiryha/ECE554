@@ -20,6 +20,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         # Data
         self.keyboard_blank = f'{root}/data/images/blank.png'
+        self.keyboard_all = f'{root}/data/images/all.png'
         self.lessons = f'{root}/data/lessons.json'
         self.tests = f'{root}/data/tests.json'
         self.lessons_data = None
@@ -27,6 +28,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         # Lesson flow control
         self.lesson_started = False
+        self.sequence_ended = False
         self.lesson_name = None
         self.sequence_text = None
         self.number_of_sequences = 0
@@ -151,11 +153,17 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                     return
 
                 # End of Sequence
-                print('end seq')
-                self.user_input = ''
-                self.current_string = 0
-                self.current_sequence += 1
-                self.init_sequence()
+                pixmap = QtGui.QPixmap(self.keyboard_all)
+                self.labPictures.setPixmap(pixmap)
+                if self.sequence_ended:
+                    # Last letter of sequence
+                    self.sequence_ended = False
+                    self.user_input = ''
+                    self.current_string = 0
+                    self.current_sequence += 1
+                    self.init_sequence()
+                    return 
+                self.sequence_ended = True
                 return
 
             self.set_next_picture()
