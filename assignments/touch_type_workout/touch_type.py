@@ -14,7 +14,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         super(TouchType, self).__init__()
         self.setupUi(self)
         font = QtGui.QFont('Free Range Hive')
-        font.setPointSize(40)
+        font.setPointSize(48)
         self.labTasks.setFont(font)
         self.labTasks.setText('SELECT LESSON AND PRESS "START LESSON"')
 
@@ -42,6 +42,8 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
     def check_user_input(self, user_text):
 
+        # print(f'user_text {user_text}')
+
         # Build a new string that will include correct and incorrect characters
         colored_string = ""
 
@@ -54,17 +56,34 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                 colored_string += "<font color='red'>{}</font>".format(user_char)
 
         # Preserve the rest of the original string after the user's input
+        # print(f'self.sequence_text[len(user_text):] {self.sequence_text[len(user_text):]}')
         colored_string += self.sequence_text[len(user_text):]
+        # print(f'colored_string = {colored_string}')
 
         # Update the label text
         self.labTasks.setText(colored_string)
+
+    def set_next_picture(self):
+
+        # print(f' self.sequence_text = { self.sequence_text}')
+        # print(f' self.current_string = { self.current_string}')
+
+        # Get pressed key
+        if self.sequence_text[self.current_string] == ' ':
+            key = 'space'
+        else:
+            key = self.sequence_text[self.current_string].upper()
+
+        # Show next letter in UI
+        pixmap = f'{root}/data/images/{key}.png'
+        self.labPictures.setPixmap(pixmap)
 
     def reset_ui(self):
 
         pixmap = QtGui.QPixmap(self.keyboard_blank)
         self.labPictures.setPixmap(pixmap)
         self.labTasks.clear()
-        self.labTasks.setText('Lesson complete!')
+        self.labTasks.setText('LESSON COMPLETE!')
 
     def init_ui(self):
 
@@ -85,9 +104,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
     def init_sequence(self):
 
-        # lesson = self.comLessons.currentText()
         self.sequence_text = self.lessons_data[self.lesson_name]['sequences'][self.current_sequence]
-        # self.linTask.setText(self.sequence_text)
         self.labTasks.setText(self.sequence_text)
 
         pixmap = f'{root}/data/images/{self.sequence_text[self.current_string].upper()}.png'
@@ -126,10 +143,6 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
             self.check_user_input(self.user_input)
 
-            print(f'Check "{task_letter}":"{pressed_letter}"')
-            if task_letter != pressed_letter:
-                print('WRONG LETTER')
-
             if self.current_string == self.string_length:
                 if self.number_of_sequences == self.current_sequence + 1:
                     # End of lesson
@@ -138,21 +151,14 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                     return
 
                 # End of Sequence
+                print('end seq')
                 self.user_input = ''
                 self.current_string = 0
                 self.current_sequence += 1
                 self.init_sequence()
                 return
 
-            # Get pressed key
-            if self.sequence_text[self.current_string] == ' ':
-                key = 'space'
-            else:
-                key = self.sequence_text[self.current_string].upper()
-
-            # Show next letter in UI
-            pixmap = f'{root}/data/images/{key}.png'
-            self.labPictures.setPixmap(pixmap)
+            self.set_next_picture()
 
             # Update string counter
             self.current_string += 1
