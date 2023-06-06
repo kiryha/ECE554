@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1079</width>
-    <height>627</height>
+    <width>1060</width>
+    <height>612</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,7 +60,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="linTask"/>
+         <widget class="QLabel" name="labTasks">
+          <property name="text">
+           <string>Select lesson adn press &quot;Satrt Lesson&quot;</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="labPictures">
@@ -98,7 +102,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1079</width>
+     <width>1060</width>
      <height>21</height>
     </rect>
    </property>

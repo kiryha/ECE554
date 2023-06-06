@@ -17,7 +17,7 @@ class Ui_TouchType(object):
     def setupUi(self, TouchType):
         if not TouchType.objectName():
             TouchType.setObjectName(u"TouchType")
-        TouchType.resize(1079, 627)
+        TouchType.resize(1060, 612)
         self.centralwidget = QWidget(TouchType)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -57,10 +57,10 @@ class Ui_TouchType(object):
 
         self.verticalLayout_2.addWidget(self.splitter)
 
-        self.linTask = QLineEdit(self.tab_1)
-        self.linTask.setObjectName(u"linTask")
+        self.labTasks = QLabel(self.tab_1)
+        self.labTasks.setObjectName(u"labTasks")
 
-        self.verticalLayout_2.addWidget(self.linTask)
+        self.verticalLayout_2.addWidget(self.labTasks)
 
         self.labPictures = QLabel(self.tab_1)
         self.labPictures.setObjectName(u"labPictures")
@@ -81,7 +81,7 @@ class Ui_TouchType(object):
         TouchType.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(TouchType)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1079, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1060, 21))
         TouchType.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(TouchType)
         self.statusbar.setObjectName(u"statusbar")
@@ -101,6 +101,7 @@ class Ui_TouchType(object):
         self.btnStartLesson.setText(QCoreApplication.translate("TouchType", u"Start Lesson", None))
         self.label_2.setText(QCoreApplication.translate("TouchType", u"Tests: ", None))
         self.btnStartTest.setText(QCoreApplication.translate("TouchType", u"Start Test", None))
+        self.labTasks.setText(QCoreApplication.translate("TouchType", u"TASKS", None))
         self.labPictures.setText(QCoreApplication.translate("TouchType", u"PICTURES", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("TouchType", u"Lessons and Tests", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("TouchType", u"Statistics", None))
