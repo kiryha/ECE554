@@ -16,6 +16,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         font = QtGui.QFont('Free Range Hive')
         font.setPointSize(40)
         self.labTasks.setFont(font)
+        self.labTasks.setText('SELECT LESSON AND PRESS "START LESSON"')
 
         # Data
         self.keyboard_blank = f'{root}/data/images/blank.png'
@@ -47,7 +48,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         for correct_char, user_char in zip(self.sequence_text, user_text):
             # Correct characters will be painted in black
             if correct_char == user_char:
-                colored_string += "<font color='black'>{}</font>".format(user_char)
+                colored_string += "<font color='green'>{}</font>".format(user_char)
             # Incorrect characters will be painted in red
             else:
                 colored_string += "<font color='red'>{}</font>".format(user_char)
