@@ -17,7 +17,7 @@ class Ui_TouchType(object):
     def setupUi(self, TouchType):
         if not TouchType.objectName():
             TouchType.setObjectName(u"TouchType")
-        TouchType.resize(1376, 765)
+        TouchType.resize(1510, 765)
         self.centralwidget = QWidget(TouchType)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -41,7 +41,7 @@ class Ui_TouchType(object):
         self.splitter.addWidget(self.comLessons)
         self.btnStartLesson = QPushButton(self.splitter)
         self.btnStartLesson.setObjectName(u"btnStartLesson")
-        self.btnStartLesson.setMaximumSize(QSize(100, 16777215))
+        self.btnStartLesson.setMaximumSize(QSize(150, 16777215))
         self.splitter.addWidget(self.btnStartLesson)
         self.line = QFrame(self.splitter)
         self.line.setObjectName(u"line")
@@ -58,7 +58,7 @@ class Ui_TouchType(object):
         self.splitter.addWidget(self.comTests)
         self.btnStartTest = QPushButton(self.splitter)
         self.btnStartTest.setObjectName(u"btnStartTest")
-        self.btnStartTest.setMaximumSize(QSize(100, 16777215))
+        self.btnStartTest.setMaximumSize(QSize(150, 16777215))
         self.splitter.addWidget(self.btnStartTest)
 
         self.verticalLayout_2.addWidget(self.splitter)
@@ -92,6 +92,18 @@ class Ui_TouchType(object):
         self.tabWidget.addTab(self.tab_1, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
+        self.verticalLayout_3 = QVBoxLayout(self.tab_2)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.btnReloadStatistics = QPushButton(self.tab_2)
+        self.btnReloadStatistics.setObjectName(u"btnReloadStatistics")
+
+        self.verticalLayout_3.addWidget(self.btnReloadStatistics)
+
+        self.layStatistics = QVBoxLayout()
+        self.layStatistics.setObjectName(u"layStatistics")
+
+        self.verticalLayout_3.addLayout(self.layStatistics)
+
         self.tabWidget.addTab(self.tab_2, "")
 
         self.verticalLayout.addWidget(self.tabWidget)
@@ -99,7 +111,7 @@ class Ui_TouchType(object):
         TouchType.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(TouchType)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1376, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1510, 21))
         TouchType.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(TouchType)
         self.statusbar.setObjectName(u"statusbar")
@@ -124,6 +136,7 @@ class Ui_TouchType(object):
         self.sep_2.setText("")
         self.labPictures.setText(QCoreApplication.translate("TouchType", u"PICTURES", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("TouchType", u"Lessons and Tests", None))
+        self.btnReloadStatistics.setText(QCoreApplication.translate("TouchType", u"Reload Statistics", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("TouchType", u"Statistics", None))
     # retranslateUi
 

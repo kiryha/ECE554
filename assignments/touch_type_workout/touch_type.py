@@ -7,6 +7,50 @@ import time
 import json
 from PySide2 import QtWidgets, QtCore, QtGui
 from ui import ui_main
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+
+
+class StatisticCanvas(FigureCanvas):
+    def __init__(self, parent=None):
+        fig = Figure(dpi=100)  # figsize=(1.6, 0.52),
+        self.axes = fig.add_subplot(111)
+        self.compute_initial_figure()
+
+        FigureCanvas.__init__(self, fig)
+        self.setParent(parent)
+
+        FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+
+
+class MyStaticMplCanvas(StatisticCanvas):
+    def __init__(self, json_file, parent=None):
+        self.json_file = json_file
+        super().__init__(parent)
+
+    def compute_initial_figure(self):
+
+        # Load data
+        with open(self.json_file) as f:
+            statistics_data = json.load(f)
+
+        times = list(statistics_data.keys())
+        characters = [value['characters'] for value in statistics_data.values()]
+        times_values = [value['time'] for value in statistics_data.values()]
+        errors = [value['errors'] for value in statistics_data.values()]
+
+        self.axes.plot(times, characters, 'r', label='Characters')
+        self.axes.plot(times, times_values, 'g', label='Time')
+        self.axes.plot(times, errors, 'b', label='Errors')
+
+        self.axes.legend()
+
+        # self.axes.set_xlabel('Time')
+        # self.axes.set_ylabel('Value')
+        # self.axes.set_title('Statistics')
+        self.axes.figure.subplots_adjust(left=0.01, right=0.99, bottom=0.01, top=0.99)
+        self.axes.figure.tight_layout()
 
 
 class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
@@ -49,11 +93,16 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.wpm_lesson_characters = 0
         self.errors = 0
 
+        # Setup graph
+        self.canvas = MyStaticMplCanvas(self.statistic, self)
+        self.layStatistics.addWidget(self.canvas)
+
         self.init_ui()
 
         # UI calls
         self.btnStartLesson.pressed.connect(self.start_lesson)
         self.btnStartTest.pressed.connect(self.start_test)
+        self.btnReloadStatistics.pressed.connect(self.reload_stat)
 
     def check_user_input(self, user_text):
         """
@@ -129,6 +178,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
     def init_ui(self):
 
+        # Tests and Lessons
         # Load keyboard
         pixmap = QtGui.QPixmap(self.keyboard_blank)
         self.labPictures.setPixmap(pixmap)
@@ -302,6 +352,10 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.start_sequence()
 
         self.labPictures.setFocus()  # Allow application to catch SPACE key
+
+    def reload_stat(self):
+
+        self.canvas = MyStaticMplCanvas(self.statistic, self)
 
 
 if __name__ == "__main__":

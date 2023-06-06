@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1376</width>
+    <width>1510</width>
     <height>765</height>
    </rect>
   </property>
@@ -52,7 +52,7 @@
           <widget class="QPushButton" name="btnStartLesson">
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>16777215</height>
             </size>
            </property>
@@ -87,7 +87,7 @@
           <widget class="QPushButton" name="btnStartTest">
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>16777215</height>
             </size>
            </property>
@@ -156,6 +156,18 @@
        <attribute name="title">
         <string>Statistics</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="btnReloadStatistics">
+          <property name="text">
+           <string>Reload Statistics</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="layStatistics"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -166,7 +178,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1376</width>
+     <width>1510</width>
      <height>21</height>
     </rect>
    </property>
