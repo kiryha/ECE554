@@ -17,7 +17,7 @@ class Ui_TouchType(object):
     def setupUi(self, TouchType):
         if not TouchType.objectName():
             TouchType.setObjectName(u"TouchType")
-        TouchType.resize(1060, 612)
+        TouchType.resize(1376, 646)
         self.centralwidget = QWidget(TouchType)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -81,7 +81,7 @@ class Ui_TouchType(object):
         TouchType.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(TouchType)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1060, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1376, 21))
         TouchType.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(TouchType)
         self.statusbar.setObjectName(u"statusbar")
@@ -101,7 +101,7 @@ class Ui_TouchType(object):
         self.btnStartLesson.setText(QCoreApplication.translate("TouchType", u"Start Lesson", None))
         self.label_2.setText(QCoreApplication.translate("TouchType", u"Tests: ", None))
         self.btnStartTest.setText(QCoreApplication.translate("TouchType", u"Start Test", None))
-        self.labTasks.setText(QCoreApplication.translate("TouchType", u"Select lesson adn press \"Satrt Lesson\"", None))
+        self.labTasks.setText(QCoreApplication.translate("TouchType", u"TASKS", None))
         self.labPictures.setText(QCoreApplication.translate("TouchType", u"PICTURES", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("TouchType", u"Lessons and Tests", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("TouchType", u"Statistics", None))

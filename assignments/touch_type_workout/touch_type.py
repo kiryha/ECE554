@@ -104,7 +104,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.comLessons.addItems(self.lessons_data.keys())
         self.comTests.addItems(self.tests_data.keys())
 
-    def init_sequence(self):
+    def start_sequence(self):
 
         self.sequence_text = self.lessons_data[self.lesson_name]['sequences'][self.current_sequence]
         self.labTasks.setText(self.sequence_text)
@@ -123,7 +123,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.user_input = ''
         self.current_sequence = 0
         self.current_string = 0
-        self.init_sequence()
+        self.start_sequence()
         self.lesson_started = True
         self.labPictures.setFocus()  # Allow application to catch SPACE key
 
@@ -134,15 +134,10 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         if self.lesson_started:
 
-            # print(f'current key = {event.key()}')
-            # print(f'current sequence = {self.current_sequence}')
-            # print(f'current string = {self.current_string}')
-
             # Check if it was a correct key
             task_letter = self.sequence_text[self.current_string - 1]
             pressed_letter = chr(event.key())
             self.user_input += pressed_letter
-
             self.check_user_input(self.user_input)
 
             if self.current_string == self.string_length:
@@ -161,8 +156,8 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                     self.user_input = ''
                     self.current_string = 0
                     self.current_sequence += 1
-                    self.init_sequence()
-                    return 
+                    self.start_sequence()
+                    return
                 self.sequence_ended = True
                 return
 

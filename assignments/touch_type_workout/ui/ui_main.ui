@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1060</width>
-    <height>612</height>
+    <width>1376</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,7 +62,7 @@
         <item>
          <widget class="QLabel" name="labTasks">
           <property name="text">
-           <string>Select lesson adn press &quot;Satrt Lesson&quot;</string>
+           <string>TASKS</string>
           </property>
          </widget>
         </item>
@@ -102,7 +102,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1060</width>
+     <width>1376</width>
      <height>21</height>
     </rect>
    </property>
