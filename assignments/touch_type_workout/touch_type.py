@@ -122,11 +122,10 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         else:
             string = 'TEST'
 
-        # self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font>')
+        # Display lesson statistics
         self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font> '
                               f'WPM: {self.cps_to_wpm()} | '
-                              f'ERRORS: {self.errors_rate()}% | '
-                              f'RHYTHM: ...')
+                              f'ERRORS: {self.errors_rate()}%')
 
     def init_ui(self):
 
