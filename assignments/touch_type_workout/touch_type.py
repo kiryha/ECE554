@@ -16,11 +16,11 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         font = QtGui.QFont('Free Range Hive')
         font.setPointSize(48)
         self.labTasks.setFont(font)
-        self.labTasks.setText('SELECT LESSON AND PRESS "START LESSON"')
+        self.labTasks.setText('PRESS "START LESSON" or "START TEST"')
 
         # Data
-        self.keyboard_blank = f'{root}/data/images/blank.png'
-        self.keyboard_all = f'{root}/data/images/all.png'
+        self.keyboard_blank = f'{root}/data/images/_blank.png'
+        self.keyboard_all = f'{root}/data/images/_all.png'
         self.lessons = f'{root}/data/lessons.json'
         self.tests = f'{root}/data/tests.json'
         self.lessons_data = None
@@ -75,7 +75,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         # Get pressed key
         if self.sequence_text[self.current_string] == ' ':
-            key = 'space'
+            key = '_space'
         else:
             key = self.sequence_text[self.current_string].upper()
 
@@ -213,6 +213,6 @@ if __name__ == "__main__":
     root = os.path.dirname(os.path.abspath(__file__))
     app = QtWidgets.QApplication([])
     touch_type = TouchType()
-    # split_smart.setWindowIcon(QtGui.QIcon('{0}/icons/split_smart.ico'.format(root)))
+    touch_type.setWindowIcon(QtGui.QIcon('{0}/icons/touch_type.ico'.format(root)))
     touch_type.show()
     app.exec_()
