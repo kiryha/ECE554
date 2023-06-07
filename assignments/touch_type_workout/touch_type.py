@@ -1,5 +1,7 @@
 """
+ECE579 Embedded Systems
 
+Final Project - Touch Type Workout
 """
 
 import os
@@ -13,8 +15,9 @@ from matplotlib.figure import Figure
 
 class StatisticCanvas(FigureCanvas):
     def __init__(self, parent=None):
+
         fig = Figure(dpi=100)
-        self.axes = fig.add_subplot(111)
+        self.axes = fig.subplots(3, 1, sharex=True)
         self.compute_initial_figure()
 
         FigureCanvas.__init__(self, fig)
@@ -33,6 +36,7 @@ class MyStaticMplCanvas(StatisticCanvas):
         self.times = None
         self.wpm = None
         self.errors = None
+        self.rhythm = None
 
     def load_data(self):
 
@@ -54,25 +58,46 @@ class MyStaticMplCanvas(StatisticCanvas):
             error_value = int((value['errors']/value['characters'])*100)
             self.errors.append(error_value)
 
-    def plot(self):
+        # Get rhythm
+        self.rhythm = []
+        for value in self.statistics_data.values():
+            self.rhythm.append(value['rhythm'])
 
-        self.axes.plot(self.times, self.wpm, 'r', label='WPM')
-        self.axes.plot(self.times, self.errors, 'b', label='Errors')
+    def plot(self):
+        """
+        Draw graphs from data
+        """
+
+        linewidth = 4
+
+        self.axes[0].plot(self.times, self.wpm, 'r', label='Words Per Minute', linewidth=linewidth)
+        self.axes[1].plot(self.times, self.errors, 'b', label='Errors %', linewidth=linewidth)
+        self.axes[2].plot(self.times, self.rhythm, 'g', label='Typing Rhythm',  linewidth=linewidth)
 
     def compute_initial_figure(self):
 
         self.load_data()
         self.plot()
-        self.axes.legend()
-        self.axes.figure.tight_layout()
+
+        for axe in self.axes:
+            axe.legend()
+            axe.tick_params(axis='both', which='major', labelsize=8)
+
+        self.axes[0].figure.tight_layout()
 
     def update_figure(self):
 
-        self.axes.clear()
+        for axe in self.axes:
+            axe.clear()
+
         self.load_data()
         self.plot()
-        self.axes.legend()
-        self.axes.figure.tight_layout()
+
+        for axe in self.axes:
+            axe.legend()
+            axe.tick_params(axis='both', which='major', labelsize=8)
+
+        self.axes[0].figure.tight_layout()
         self.draw()
 
 
@@ -83,6 +108,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         font = QtGui.QFont('Free Range Hive')
         font.setPointSize(48)
         self.labTasks.setFont(font)
+        self.labRecommendation.setFont(font)
         self.labTasks.setText('PRESS  <font color="red">START LESSON</font> OR <font color="red">START TEST</font>')
 
         # Data
@@ -115,12 +141,14 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.wpm_lesson_time = 0
         self.wpm_lesson_characters = 0
         self.errors = 0
+        self.key_stamps = []
+
+        # Setup UI with data
+        self.init_ui()
 
         # Setup graph
         self.canvas = MyStaticMplCanvas(self.statistic, self)
         self.layStatistics.addWidget(self.canvas)
-
-        self.init_ui()
 
         # UI calls
         self.btnStartLesson.pressed.connect(self.start_lesson)
@@ -197,9 +225,15 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         # Display lesson statistics
         self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font> '
                               f'WPM: {self.cps_to_wpm()} | '
-                              f'ERRORS: {self.errors_rate()}%')
+                              f'ERR: {self.errors_rate()}% | '
+                              f'RHM: {self.rhythm()}')
 
     def init_ui(self):
+
+        # Create empty statistic file if it is not exists:
+        if not os.path.exists(self.statistic):
+            with open(self.statistic, 'w') as file_content:
+                json.dump({}, file_content, indent=4)
 
         # Tests and Lessons
         # Load keyboard
@@ -216,7 +250,36 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.comLessons.addItems(self.lessons_data.keys())
         self.comTests.addItems(self.tests_data.keys())
 
+        # Show recommendations
+        self.recommendation()
+
     # Statistics
+    def recommendation(self):
+        """
+        Read statistics file and provide recommendations based on statistics of last session
+        """
+
+        self.labRecommendation.setText('Increase <font color="red">typing speed</font>!')
+
+    def rhythm(self):
+        """
+        The rhythm value provides a measure of the speed and consistency of typing.
+
+        A lower rhythm value indicates faster and more consistent typing, since the time between subsequent
+        key presses is less.
+        A higher rhythm value indicates slower and/or less consistent typing,
+        since the time between subsequent key presses is more.
+        """
+
+        # Calculate the differences between subsequent timestamps
+        intervals = [j - i for i, j in zip(self.key_stamps[:-1], self.key_stamps[1:])]
+
+        # Get rhythm as average of intervals
+        rhythm = sum(intervals) / len(intervals)
+
+        # return round(rhythm, 2)
+        return int(rhythm*10)
+
     def errors_rate(self):
 
         return int((self.errors/self.wpm_lesson_characters)*100)
@@ -259,7 +322,8 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         # Calculate Stat
         session_data = {'characters': self.wpm_lesson_characters,
                         'time': self.wpm_lesson_time,
-                        'errors': self.errors}
+                        'errors': self.errors,
+                        'rhythm': self.rhythm()}
 
         if not statistic_data.keys():  # First launch
             statistic_data[0] = session_data
@@ -299,6 +363,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             # Key errors
             if task_letter != pressed_letter and not self.sequence_ended:
                 self.errors += 1
+
+            # Rhythm
+            self.key_stamps.append(time.time())
 
             # Display errors in UI
             self.check_user_input(self.user_input)
@@ -358,6 +425,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.wpm_lesson_time = 0
         self.wpm_lesson_characters = 0
         self.errors = 0
+        del self.key_stamps[:]
 
         # Run sequence
         self.start_sequence()
@@ -379,6 +447,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
     def reload_stat(self):
 
         self.canvas.update_figure()
+        self.recommendation()
 
 
 if __name__ == "__main__":

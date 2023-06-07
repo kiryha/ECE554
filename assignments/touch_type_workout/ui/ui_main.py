@@ -104,6 +104,11 @@ class Ui_TouchType(object):
 
         self.verticalLayout_3.addLayout(self.layStatistics)
 
+        self.labRecommendation = QLabel(self.tab_2)
+        self.labRecommendation.setObjectName(u"labRecommendation")
+
+        self.verticalLayout_3.addWidget(self.labRecommendation)
+
         self.tabWidget.addTab(self.tab_2, "")
 
         self.verticalLayout.addWidget(self.tabWidget)
@@ -137,6 +142,7 @@ class Ui_TouchType(object):
         self.labPictures.setText(QCoreApplication.translate("TouchType", u"PICTURES", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("TouchType", u"Lessons and Tests", None))
         self.btnReloadStatistics.setText(QCoreApplication.translate("TouchType", u"Reload Statistics", None))
+        self.labRecommendation.setText("")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("TouchType", u"Statistics", None))
     # retranslateUi
 
