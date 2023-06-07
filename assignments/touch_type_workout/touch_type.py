@@ -259,6 +259,16 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         Read statistics file and provide recommendations based on statistics of last session
         """
 
+        with open(self.statistic) as f:
+            statistics_data = json.load(f)
+
+        last_key = len(statistics_data.keys()) - 1
+        last_session_data = statistics_data.get(str(last_key))
+        wpm = self.cps_to_wpm(last_session_data['characters'], last_session_data['time'])
+        errors_rate = self.errors_rate(last_session_data['characters'], last_session_data['errors'])
+
+        print(f'Last Session data: {wpm}, {errors_rate}, {last_session_data["rhythm"]}')
+
         self.labRecommendation.setText('Increase <font color="red">typing speed</font>!')
 
     def rhythm(self):
@@ -280,17 +290,26 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         # return round(rhythm, 2)
         return int(rhythm*10)
 
-    def errors_rate(self):
+    def errors_rate(self, characters=None, errors=None):
 
-        return int((self.errors/self.wpm_lesson_characters)*100)
+        if not characters:
+            rate = self.errors / self.wpm_lesson_characters
+        else:
+            rate = errors / characters
 
-    def cps_to_wpm(self):
+        return int(rate * 100)
+
+    def cps_to_wpm(self, characters=None, lesson_time=None):
         """
         words per minute = (characters per second * 60) / letters in word
         f"{wpm:.2f}"
         """
 
-        cps = self.wpm_lesson_characters/self.wpm_lesson_time
+        if not characters:
+            cps = self.wpm_lesson_characters/self.wpm_lesson_time
+        else:
+            cps = characters / lesson_time
+
         wpm = (cps*60)/5
 
         return int(wpm)
@@ -378,10 +397,10 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
                     self.lesson_started = False
                     self.test_started = False
                     # Statistics
-                    self.sequence_wpm()
                     # print('End timing WPM')
                     # print('END SESSION')
                     self.record_statistics()
+                    self.sequence_wpm()
 
                     return
 
