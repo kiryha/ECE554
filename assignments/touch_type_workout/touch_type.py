@@ -268,9 +268,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         errors_rate = self.errors_rate(last_session_data['characters'], last_session_data['errors'])
         rhythm = last_session_data["rhythm"]
 
-        print(f'Last Session data: {wpm}, {errors_rate}, {rhythm}')
+        # print(f'Last Session data: {wpm}, {errors_rate}, {rhythm}')
 
-        self.labRecommendation.setText('Increase <font color="red">typing speed</font>!')
+        self.labRecommendation.setText(f'Increase <font color="red">typing speed</font>! {wpm}:{errors_rate}:{rhythm}')
 
     def rhythm(self):
         """
