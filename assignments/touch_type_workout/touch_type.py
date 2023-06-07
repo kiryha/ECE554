@@ -256,7 +256,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
     # Statistics
     def recommendation(self):
         """
-        Read statistics file and provide recommendations based on statistics of last session
+        Read statistics of last session and provide recommendations
         """
 
         with open(self.statistic) as f:
@@ -266,8 +266,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         last_session_data = statistics_data.get(str(last_key))
         wpm = self.cps_to_wpm(last_session_data['characters'], last_session_data['time'])
         errors_rate = self.errors_rate(last_session_data['characters'], last_session_data['errors'])
+        rhythm = last_session_data["rhythm"]
 
-        print(f'Last Session data: {wpm}, {errors_rate}, {last_session_data["rhythm"]}')
+        print(f'Last Session data: {wpm}, {errors_rate}, {rhythm}')
 
         self.labRecommendation.setText('Increase <font color="red">typing speed</font>!')
 
