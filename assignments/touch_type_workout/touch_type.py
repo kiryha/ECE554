@@ -184,6 +184,10 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         # Get pressed key
         if self.sequence_text[self.current_string] == ' ':
             key = '_space'
+        elif self.sequence_text[self.current_string] == '.':
+            key = '_dot'
+        elif self.sequence_text[self.current_string] == ',':
+            key = '_comma'
         else:
             key = self.sequence_text[self.current_string].upper()
 
@@ -264,6 +268,11 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         last_key = len(statistics_data.keys()) - 1
         last_session_data = statistics_data.get(str(last_key))
+
+        if not last_session_data:
+            print('>> The Statistics data is not available!')
+            return
+
         wpm = self.cps_to_wpm(last_session_data['characters'], last_session_data['time'])
         errors_rate = self.errors_rate(last_session_data['characters'], last_session_data['errors'])
         rhythm = last_session_data["rhythm"]
