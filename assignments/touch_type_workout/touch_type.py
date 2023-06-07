@@ -394,14 +394,13 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             if self.current_string == self.string_length:
                 if self.number_of_sequences == self.current_sequence + 1:
                     # End of lesson
-                    self.reset_ui()
+                    # print('END SESSION')
+                    # print('End timing WPM')
                     self.lesson_started = False
                     self.test_started = False
-                    # Statistics
-                    # print('End timing WPM')
-                    # print('END SESSION')
-                    self.record_statistics()
                     self.sequence_wpm()
+                    self.record_statistics()
+                    self.reset_ui()
 
                     return
 
