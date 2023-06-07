@@ -224,8 +224,8 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         # Display lesson statistics
         self.labTasks.setText(f'{string} <font color="red">COMPLETE!</font> '
-                              f'WPM: {self.cps_to_wpm()} | '
-                              f'ERR: {self.errors_rate()}% | '
+                              f'WPM: {self.cps_to_wpm()}, '
+                              f'ERR: {self.errors_rate()}%, '
                               f'RHM: {self.rhythm()}')
 
     def init_ui(self):
