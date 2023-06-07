@@ -273,13 +273,43 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             print('>> The Statistics data is not available!')
             return
 
+        # Get parameters data
         wpm = self.cps_to_wpm(last_session_data['characters'], last_session_data['time'])
         errors_rate = self.errors_rate(last_session_data['characters'], last_session_data['errors'])
         rhythm = last_session_data["rhythm"]
-
         # print(f'Last Session data: {wpm}, {errors_rate}, {rhythm}')
 
-        self.labRecommendation.setText(f'Increase <font color="red">typing speed</font>! {wpm}:{errors_rate}:{rhythm}')
+        # Calibrate parameters
+        wpm_high = False
+        wpm_low = False
+        error_high = False
+        error_low = False
+        rhythm_high = False
+        rhythm_low = False
+
+        if wpm < 20:
+            wpm_low = True
+        else:
+            wpm_high = True
+        if errors_rate > 50:
+            error_high = True
+        else:
+            error_low = True
+        if rhythm > 5:
+            rhythm_low = True
+        else:
+            rhythm_high = True
+
+        # Calculate recommendation
+        string = f'You are awesome! WPM: <font color="red">{wpm}</font>, ' \
+                 f'ERRORS:  <font color="red">{errors_rate}</font>, ' \
+                 f'RHYTHM: <font color="red">{rhythm}</font>!'
+
+        # High WPM, High Error Rate, High Rhythm
+        if wpm_high and error_high and rhythm_high:
+            string = f'Reduce speed and focus on accuracy. Try to maintain a steady rhythm when typing'
+
+        self.labRecommendation.setText(string)
 
     def rhythm(self):
         """
