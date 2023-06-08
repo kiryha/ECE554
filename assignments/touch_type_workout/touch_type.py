@@ -108,6 +108,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         font = QtGui.QFont('Free Range Hive')
         font.setPointSize(48)
         self.labTasks.setFont(font)
+        font.setPointSize(32)
         self.labRecommendation.setFont(font)
         self.labTasks.setText('PRESS  <font color="red">START LESSON</font> OR <font color="red">START TEST</font>')
 
@@ -307,7 +308,35 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
 
         # High WPM, High Error Rate, High Rhythm
         if wpm_high and error_high and rhythm_high:
-            string = f'Reduce speed and focus on accuracy. Try to maintain a steady rhythm when typing'
+            string = f'Reduce speed and focus on accuracy. Try to maintain a steady rhythm when typing.'
+
+        # High WPM, High Error Rate, Low Rhythm
+        if wpm_high and error_high and rhythm_low:
+            string = f'Slow down your typing speed and concentrate on accuracy.'
+
+        # High WPM, Low Error Rate, High Rhythm
+        if wpm_high and error_low and rhythm_high:
+            string = f'Your rhythm is inconsistent. Try to establish a steady pace to increase efficiency.'
+
+        # High WPM, Low Error Rate, Low Rhythm
+        if wpm_high and error_low and rhythm_low:
+            string = f'Your typing speed and accuracy are impressive, and you maintain a steady rhythm!'
+
+        # Low WPM, High Error Rate, High Rhythm
+        if wpm_low and error_high and rhythm_high:
+            string = f'Practice typing at a slower pace, concentrate on accuracy, try to develop a consistent rhythm.'
+
+        # Low WPM, High Error Rate, Low Rhythm
+        if wpm_low and error_high and rhythm_low:
+            string = f'Focus more on accuracy and gradually increase your speed.'
+
+        # Low WPM, Low Error Rate, High Rhythm
+        if wpm_low and error_low and rhythm_high:
+            string = f'You need to improve your typing speed and establish a steady rhythm.'
+
+        # Low WPM, Low Error Rate, Low Rhythm
+        if wpm_low and error_low and rhythm_low:
+            string = f'Accuracy and rhythm are great! Focus on increasing your typing speed through practice.'
 
         self.labRecommendation.setText(string)
 
