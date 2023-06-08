@@ -1,5 +1,5 @@
 {
-  "lesson 01": {
+  "Lesson 01": {
     "letters": [
       "F",
       "J"
@@ -9,7 +9,7 @@
       "JJJ"
     ]
   },
-  "lesson 02": {
+  "Lesson 02": {
     "letters": [
       "d",
       "k"
@@ -21,7 +21,7 @@
       "DDK DDK DDK DDK DDK DDK"
     ]
   },
-  "lesson 03": {
+  "Lesson 03": {
     "letters": [
       "s",
       "l"
@@ -33,7 +33,7 @@
       "SSLS SLSS LSLS SLLS SLS"
     ]
   },
-  "lesson 04": {
+  "Lesson 04": {
     "letters": [
       "a",
       "e",
@@ -48,7 +48,7 @@
       "AIEOU AIEOU AIEOU AIEOU AIEOU AIEOU"
     ]
   },
-  "lesson 05": {
+  "Lesson 05": {
     "letters": [
       "g",
       "h"
@@ -60,7 +60,7 @@
       "GGH GGH GGH GGH GGH GGH"
     ]
   },
-  "lesson 06": {
+  "Lesson 06": {
     "letters": [
       "t",
       "y"
@@ -72,7 +72,7 @@
       "TYTY TYTY TYTY TYTY TYTY TYTY"
     ]
   },
-  "lesson 07": {
+  "Lesson 07": {
     "letters": [
       "r",
       "u"
@@ -84,7 +84,7 @@
       "URUR URUR URUR URUR URUR URUR"
     ]
   },
-  "lesson 08": {
+  "Lesson 08": {
     "letters": [
       "v",
       "m"
@@ -96,7 +96,7 @@
       "VVMVVM VVMVVM VVMVVM VVMVVM VVMVVM"
     ]
   },
-  "lesson 09": {
+  "Lesson 09": {
     "letters": ["c", "w"],
     "sequences": [
       "CCC WWW CCC WWW CCC WWW",
@@ -105,7 +105,7 @@
       "WCWC WCWC WCWC WCWC WCWC WCWC"
     ]
   },
-  "lesson 10": {
+  "Lesson 10": {
     "letters": ["x", "n"],
     "sequences": [
       "XXX NNN XXX NNN XXX NNN",
@@ -114,7 +114,7 @@
       "XNXN XNXN XNXN XNXN XNXN XNXN"
     ]
   },
-  "lesson 11": {
+  "Lesson 11": {
     "letters": ["z", "p"],
     "sequences": [
       "ZZZ PPP ZZZ PPP ZZZ PPP",
@@ -123,7 +123,7 @@
       "PZPZ PZPZ PZPZ PZPZ PZPZ PZPZ"
     ]
   },
-  "lesson 12": {
+  "Lesson 12": {
     "letters": ["q", "b"],
     "sequences": [
       "QQQ BBB QQQ BBB QQQ BBB",
