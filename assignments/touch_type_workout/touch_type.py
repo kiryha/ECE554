@@ -1,7 +1,7 @@
 """
 ECE579 Embedded Systems
 
-Final Project - Touch Type Workout
+Final Project - Touch Type Workout - The keyboard training system for kids and seniors
 """
 
 import os
@@ -156,66 +156,7 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         self.btnStartTest.pressed.connect(self.start_test)
         self.btnReloadStatistics.pressed.connect(self.reload_stat)
 
-    def check_user_input(self, user_text):
-        """
-        Paint green correct keys, red - incorrect
-        """
-
-        colored_string = ""
-
-        for correct_character, user_character in zip(self.sequence_text, user_text):
-            # Correct characters
-            if correct_character == user_character:
-                colored_string += f"<font color='green'>{user_character}</font>"
-            # Incorrect characters
-            else:
-                colored_string += f"<font color='red'>{user_character}</font>"
-
-        # Preserve the rest of the original string after the user's input
-        colored_string += self.sequence_text[len(user_text):]
-
-        # Update the label text
-        self.labTasks.setText(colored_string)
-
-    def set_next_picture(self):
-
-        # print(f' self.sequence_text = { self.sequence_text}')
-        # print(f' self.current_string = { self.current_string}')
-
-        # Get pressed key
-        if self.sequence_text[self.current_string] == ' ':
-            key = '_space'
-        elif self.sequence_text[self.current_string] == '.':
-            key = '_dot'
-        elif self.sequence_text[self.current_string] == ',':
-            key = '_comma'
-        else:
-            key = self.sequence_text[self.current_string].upper()
-
-        # Show next letter in UI
-        pixmap = f'{root}/data/images/{key}.png'
-        self.labPictures.setPixmap(pixmap)
-
-    def start_sequence(self):
-        """
-        Display sequence of strings for current lesson
-        """
-        if self.lesson_started:
-            self.sequence_text = self.lessons_data[self.lesson_name]['sequences'][self.current_sequence]
-        else:
-            self.sequence_text = self.tests_data[self.test_name]['sequences'][self.current_sequence]
-
-        self.labTasks.setText(self.sequence_text)
-
-        pixmap = f'{root}/data/images/{self.sequence_text[self.current_string].upper()}.png'
-        self.labPictures.setPixmap(pixmap)
-
-        self.current_string = 1
-        self.string_length = len(self.sequence_text)
-
-        # Stat
-        self.wpm_lesson_characters += self.string_length
-
+    # UI setup
     def reset_ui(self):
 
         pixmap = QtGui.QPixmap(self.keyboard_blank)
@@ -360,6 +301,9 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
         return int(rhythm*10)
 
     def errors_rate(self, characters=None, errors=None):
+        """
+        Calculates number of incorrect keys pressed by user
+        """
 
         if not characters:
             rate = self.errors / self.wpm_lesson_characters
@@ -424,6 +368,67 @@ class TouchType(QtWidgets.QMainWindow, ui_main.Ui_TouchType):
             json.dump(statistic_data, file_content, indent=4)
 
     # Flow control
+    def check_user_input(self, user_text):
+        """
+        Paint green correct keys, red - incorrect
+        """
+
+        colored_string = ""
+
+        for correct_character, user_character in zip(self.sequence_text, user_text):
+            # Correct characters
+            if correct_character == user_character:
+                colored_string += f"<font color='green'>{user_character}</font>"
+            # Incorrect characters
+            else:
+                colored_string += f"<font color='red'>{user_character}</font>"
+
+        # Preserve the rest of the original string after the user's input
+        colored_string += self.sequence_text[len(user_text):]
+
+        # Update the label text
+        self.labTasks.setText(colored_string)
+
+    def set_next_picture(self):
+
+        # print(f' self.sequence_text = { self.sequence_text}')
+        # print(f' self.current_string = { self.current_string}')
+
+        # Get pressed key
+        if self.sequence_text[self.current_string] == ' ':
+            key = '_space'
+        elif self.sequence_text[self.current_string] == '.':
+            key = '_dot'
+        elif self.sequence_text[self.current_string] == ',':
+            key = '_comma'
+        else:
+            key = self.sequence_text[self.current_string].upper()
+
+        # Show next letter in UI
+        pixmap = f'{root}/data/images/{key}.png'
+        self.labPictures.setPixmap(pixmap)
+
+    def start_sequence(self):
+        """
+        Display sequence of strings for current lesson
+        """
+
+        if self.lesson_started:
+            self.sequence_text = self.lessons_data[self.lesson_name]['sequences'][self.current_sequence]
+        else:
+            self.sequence_text = self.tests_data[self.test_name]['sequences'][self.current_sequence]
+
+        self.labTasks.setText(self.sequence_text)
+
+        pixmap = f'{root}/data/images/{self.sequence_text[self.current_string].upper()}.png'
+        self.labPictures.setPixmap(pixmap)
+
+        self.current_string = 1
+        self.string_length = len(self.sequence_text)
+
+        # Stat
+        self.wpm_lesson_characters += self.string_length
+
     def keyPressEvent(self, event):
         """
         Lesson Flow control
